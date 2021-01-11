@@ -27,6 +27,6 @@ jobs:
           echo ${UNE_VAR}
           echo "...... hello!"
           docker version
-        run: docker version
+        
       - name: pre-process
         run: docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-extract
