@@ -5,6 +5,16 @@ on:
     branches: master
 
 jobs:
+  testbox:
+    runs-on: ubuntu-latest
+    container:
+      image: 3.6.3-adoptopenjdk-11
+    steps:  
+    - uses: actions/checkout@v2
+    - name: What OS is running
+      run: uname -a
+    - name: What java version do we have
+      run: java -version
   main:
     runs-on: ubuntu-latest
     steps:
