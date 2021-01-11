@@ -5,7 +5,7 @@ on:
     branches: master
 
 jobs:
-  testbox:
+  test-Maven:
     runs-on: ubuntu-latest
     container:
       image: maven:3.6.3-adoptopenjdk-11
@@ -26,3 +26,4 @@ jobs:
         run: |
           echo ${UNE_VAR}
           echo "...... hello!"
+          docker version
