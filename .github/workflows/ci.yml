@@ -22,7 +22,7 @@ jobs:
       #    docker run -p 5000:5000 ghcr.io/achile73/osrm-serveur-de-calcul:latest osrm-routed --algorithm mld /data/berlin-latest.osrm
     
       - name: Get pbf file
-        run: wget http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf  
+        run: wget http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf  -O  osrm-files/berlin-latest.osm.pbf
       - name: Pre-process pbf file
         run: |
           docker run -t -v "${PWD}/osrm-files:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /data/berlin-latest.osm.pbf
