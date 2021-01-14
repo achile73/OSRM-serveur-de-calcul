@@ -10,13 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      #- name: Test pull
-      #  run: |
-      #    docker run -p 5000:5000 ghcr.io/achile73/osrm-serveur-de-calcul:latest osrm-routed --algorithm mld /data/berlin-latest.osrm
-    
-      - name: Get pbf example file
+      - name: 🚧 Get pbf example file
         run: wget http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf  -O  osrm-files/berlin-latest.osm.pbf
-      - name: Pre-process pbf file
+      - name: ♻️ Pre-process pbf file
         run: |
           docker run -t -v "${PWD}/osrm-files:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /data/berlin-latest.osm.pbf
           docker run -t -v "${PWD}/osrm-files:/data" osrm/osrm-backend osrm-partition /data/berlin-latest.osrm
@@ -31,7 +27,7 @@ jobs:
       #    username: ${{ github.repository_owner }}
       #    password: ${{ secrets.PAT }}
 
-      - name: Build and push to ghcr
+      - name: Build and push ➡️ to ghcr
         id: docker_build
         uses: docker/build-push-action@v1
         with:
