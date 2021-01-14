@@ -39,7 +39,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: osrm:latest
+          #tags: osrm:latest
           username: ${{ github.actor }}
           password: ${{ secrets.PAT }}
           registry: ghcr.io
