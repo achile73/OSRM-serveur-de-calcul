@@ -16,6 +16,11 @@ jobs:
         run: |
           echo ${UNE_VAR}
           docker version
+      
+      - name: Test pull
+        run: |
+          docker run -t -i -p 5000:5000 -v "${PWD}:/data" ghcr.io/achile73/osrm-serveur-de-calcul:latest osrm-routed --algorithm mld /data/berlin-latest.osrm
+    
       - name: Get pbf file
         run: wget http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf  
       - name: Pre-process pbf file
@@ -45,3 +50,4 @@ jobs:
           registry: ghcr.io
           #repository: achile73/demos/demo-backend
           tag_with_ref: true
+      
