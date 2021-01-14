@@ -5,16 +5,6 @@ on:
     branches: master
 
 jobs:
-  test-Maven:
-    runs-on: ubuntu-latest
-    container:
-      image: maven:3.6.3-adoptopenjdk-11
-    steps:  
-    - uses: actions/checkout@v2
-    - name: What OS is running
-      run: uname -a
-    - name: What java version do we have
-      run: java -version
   main:
     runs-on: ubuntu-latest
     steps:
@@ -25,8 +15,7 @@ jobs:
           UNE_VAR: toto
         run: |
           echo ${UNE_VAR}
-          echo "...... hello!"
           docker version
         
       - name: pre-process
-        run: docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-extract
+        run: docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /data/berlin-latest.osm.pbf

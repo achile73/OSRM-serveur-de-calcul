@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: osrm-backend-ingress
+spec:
+  rules:
+    - host: osrm-test.dev.insee.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: osrm-backend-svc
+              servicePort: 5000

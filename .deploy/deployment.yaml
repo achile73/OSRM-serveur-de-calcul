@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osrm-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osrm-backend
+  template:
+    metadata:
+      labels:
+        app: osrm-backend
+    spec:
+      containers:
+        - name: osrm-backend-container
+          image: ghcr.io/achile73/demo-backend
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 5000

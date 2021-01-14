@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-backend-it
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-backend-it
+  template:
+    metadata:
+      labels:
+        app: demo-backend-it
+    spec:
+      containers:
+        - name: backend-container
+          image: ghcr.io/achile73/demo-backend
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-backend-it-svc
+spec:
+  selector:
+    app: demo-backend-it
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: demo-backend-it-ingress
+spec:
+  rules:
+    - host: demobackend-it-test.dev.insee.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: demo-backend-it-svc
+              servicePort: 8080
