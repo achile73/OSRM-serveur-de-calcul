@@ -17,18 +17,17 @@ jobs:
           echo ${UNE_VAR}
           docker version
       
-      - name: Test pull
-        run: |
-          docker run -p 5000:5000 ghcr.io/achile73/osrm-serveur-de-calcul:latest osrm-routed --algorithm mld /data/berlin-latest.osrm
+      #- name: Test pull
+      #  run: |
+      #    docker run -p 5000:5000 ghcr.io/achile73/osrm-serveur-de-calcul:latest osrm-routed --algorithm mld /data/berlin-latest.osrm
     
       - name: Get pbf file
         run: wget http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf  
       - name: Pre-process pbf file
         run: |
-          docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /data/berlin-latest.osm.pbf
-          docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-partition /data/berlin-latest.osrm
-          docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-customize /data/berlin-latest.osrm
-          cp berlin-latest.osrm osrm-files/
+          docker run -t -v "${PWD}/osrm-files:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /data/berlin-latest.osm.pbf
+          docker run -t -v "${PWD}/osrm-files:/data" osrm/osrm-backend osrm-partition /data/berlin-latest.osrm
+          docker run -t -v "${PWD}/osrm-files:/data" osrm/osrm-backend osrm-customize /data/berlin-latest.osrm
           ls -als osrm-files/
       
       - name: Login
