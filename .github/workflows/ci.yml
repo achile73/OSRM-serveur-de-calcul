@@ -25,6 +25,7 @@ jobs:
           docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-customize /data/berlin-latest.osrm
           cp berlin-latest.osrm osrm-files/
           ls -als osrm-files/
+      
       - name: Login
         uses: docker/login-action@v1
         with:
